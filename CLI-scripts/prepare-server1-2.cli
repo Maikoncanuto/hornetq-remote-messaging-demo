@@ -1,0 +1,7 @@
+batch
+/subsystem=messaging/hornetq-server=default/pooled-connection-factory=hornetq-ra-remote/:add(entries=["java:/RemoteJmsXA"],transaction=xa,connector={"netty-remote"=>undefined})
+/subsystem=messaging/hornetq-server=default/jms-queue=LocalServer1Q/:add(entries=["queue/LocalServer1Q","java:jboss/exported/jms/queues/LocalServer1Q"])
+/subsystem=messaging/hornetq-server=default/jms-queue=JMSBridgeSourceQ/:add(entries=["queue/JMSBridgeSourceQ","java:jboss/exported/jms/queues/JMSBridgeSourceQ"])
+/subsystem=messaging/jms-bridge=simple-jms-bridge/:add(failure-retry-interval=1000,source-destination=queue/JMSBridgeSourceQ,quality-of-service=AT_MOST_ONCE,max-batch-size=10,max-batch-time=100,max-retries=-1,target-connection-factory=jms/RemoteConnectionFactory,target-destination=jms/queues/JMSBridgeTargetQ,source-connection-factory=ConnectionFactory,target-context=["java.naming.factory.initial"="org.jboss.naming.remote.client.InitialContextFactory","java.naming.provider.url"="remote://@@jboss.bind.address@@:@@jndi.port2@@"])
+run-batch
+:reload

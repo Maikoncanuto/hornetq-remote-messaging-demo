@@ -1,0 +1,6 @@
+batch
+/subsystem=messaging/hornetq-server=default/:write-attribute(name=security-enabled,value=false)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=messaging-remote/:add(port=@@messaging.port2@@,host=@@jboss.bind.address@@)
+/subsystem=messaging/hornetq-server=default/remote-connector=netty-remote/:add(socket-binding=messaging-remote)
+run-batch
+:reload

@@ -1,0 +1,6 @@
+batch
+/subsystem=messaging/hornetq-server=default/:write-attribute(name=security-enabled,value=false)
+/subsystem=messaging/hornetq-server=default/jms-queue=LocalServer2Q/:add(entries=["queue/LocalServer2Q","java:jboss/exported/jms/queues/LocalServer2Q"])
+/subsystem=messaging/hornetq-server=default/jms-queue=JMSBridgeTargetQ/:add(entries=["queue/JMSBridgeTargetQ","java:jboss/exported/jms/queues/JMSBridgeTargetQ"])
+run-batch
+:reload
