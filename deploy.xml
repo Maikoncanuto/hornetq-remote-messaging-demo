@@ -1,112 +1,112 @@
 <?xml version="1.0"?>
 <project name="wildfly-deployment-bundle" default="main" xmlns:rhq="antlib:org.rhq.bundle">
 
-	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+    <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
-	<rhq:bundle name="jboss-wildfly-bundle" version="1.0" description="JBoss Wildfly Bundle">
+    <rhq:bundle name="jboss-wildfly-bundle" version="1.0" description="JBoss Wildfly Bundle">
 
-		<rhq:input-property name="jboss.bind.address" description="The IP to which the Standalone server would be bound" required="true" defaultValue="${jboss.bind.address}" type="string" />
-		<rhq:input-property name="jboss.server.base.dir" description="The base directory for the server configuration in Standalone mode" required="true" defaultValue="${jboss.server.base.dir}" type="string" />
-		<rhq:input-property name="jboss.management.http.port1" description="The HTTP management port for the first server" required="true" defaultValue="${jboss.management.http.port1}" type="string" />
-		<rhq:input-property name="jboss.management.http.port2" description="The HTTP management port for the second server" required="true" defaultValue="${jboss.management.http.port1}" type="string" />
-		<rhq:input-property name="messaging.port2" description="The messaging port for the second server" required="true" defaultValue="${messaging.port2}" type="string" />
-		<rhq:input-property name="jndi.port2" description="The JNDI port for the second server" required="true" defaultValue="${jndi.port2}" type="string" />
+        <rhq:input-property name="jboss.bind.address" description="The IP to which the Standalone server would be bound" required="true" defaultValue="${jboss.bind.address}" type="string" />
+        <rhq:input-property name="jboss.server.base.dir" description="The base directory for the server configuration in Standalone mode" required="true" defaultValue="${jboss.server.base.dir}" type="string" />
+        <rhq:input-property name="jboss.management.http.port1" description="The HTTP management port for the first server" required="true" defaultValue="${jboss.management.http.port1}" type="string" />
+        <rhq:input-property name="jboss.management.http.port2" description="The HTTP management port for the second server" required="true" defaultValue="${jboss.management.http.port1}" type="string" />
+        <rhq:input-property name="messaging.port2" description="The messaging port for the second server" required="true" defaultValue="${messaging.port2}" type="string" />
+        <rhq:input-property name="jndi.port2" description="The JNDI port for the second server" required="true" defaultValue="${jndi.port2}" type="string" />
 
-		<rhq:deployment-unit name="wildfly" preinstallTarget="preinstall" postinstallTarget="postinstall" manageRootDir="false">
-			
-			<rhq:file name="CLI-scripts/prepare-server2.cli" destinationFile="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin/prepare-server2.cli" replace="true" />
-			<rhq:file name="CLI-scripts/prepare-server1-1.cli" destinationFile="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin/prepare-server1-1.cli" replace="true" />
-			<rhq:file name="CLI-scripts/prepare-server1-2.cli" destinationFile="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin/prepare-server1-2.cli" replace="true" />
-			
-			<rhq:file name="mgmt-users.properties" destinationFile="wildfly-8.0.0.Alpha2/standalone/configuration/mgmt-users.properties" replace="true" />
-			<rhq:archive name="wildfly-8.0.0.Alpha2.zip" exploded="true">
-				<rhq:replace>
-					<rhq:fileset>
-						<include name="**/*.properties" />
-					</rhq:fileset>
-				</rhq:replace>
-			</rhq:archive>
-			<rhq:archive name="common.zip" exploded="true">
-				<rhq:replace>
-					<rhq:fileset>
-						<include name="**/*.properties" />
-						<include name="**/*.bat" />
-						<include name="**/*.sh" />
-					</rhq:fileset>
-				</rhq:replace>
-			</rhq:archive>
-		</rhq:deployment-unit>
-	</rhq:bundle>
+        <rhq:deployment-unit name="wildfly" preinstallTarget="preinstall" postinstallTarget="postinstall" manageRootDir="false">
 
-	<target name="preinstall">
-		<delete dir="${rhq.deploy.dir}" />
-		<echo>Downloading the publicly available JBoss AS : wildfly-8.0.0.Alpha2.zip into ${rhq.deploy.dir}</echo>
-		<get src="http://download.jboss.org/wildfly/8.0.0.Alpha2/wildfly-8.0.0.Alpha2.zip" verbose="true" usetimestamp="true" dest="wildfly-8.0.0.Alpha2.zip" />
-		<echo>Deploying the JBoss EAP bundle to ${rhq.deploy.dir} ...</echo>
-		<property name="preinstallTargetExecuted" value="true" />
-		<rhq:audit status="SUCCESS" action="Preinstall Notice" info="Preinstalling to ${rhq.deploy.dir}" message="Optional message">
+            <rhq:file name="CLI-scripts/prepare-server2.cli" destinationFile="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin/prepare-server2.cli" replace="true" />
+            <rhq:file name="CLI-scripts/prepare-server1-1.cli" destinationFile="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin/prepare-server1-1.cli" replace="true" />
+            <rhq:file name="CLI-scripts/prepare-server1-2.cli" destinationFile="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin/prepare-server1-2.cli" replace="true" />
+
+            <rhq:file name="mgmt-users.properties" destinationFile="wildfly-8.0.0.Alpha2/standalone/configuration/mgmt-users.properties" replace="true" />
+            <rhq:archive name="wildfly-8.0.0.Alpha2.zip" exploded="true">
+                <rhq:replace>
+                    <rhq:fileset>
+                        <include name="**/*.properties" />
+                    </rhq:fileset>
+                </rhq:replace>
+            </rhq:archive>
+            <rhq:archive name="common.zip" exploded="true">
+                <rhq:replace>
+                    <rhq:fileset>
+                        <include name="**/*.properties" />
+                        <include name="**/*.bat" />
+                        <include name="**/*.sh" />
+                    </rhq:fileset>
+                </rhq:replace>
+            </rhq:archive>
+        </rhq:deployment-unit>
+    </rhq:bundle>
+
+    <target name="preinstall">
+        <delete dir="${rhq.deploy.dir}" />
+        <echo>Downloading the publicly available JBoss AS : wildfly-8.0.0.Alpha2.zip into ${rhq.deploy.dir}</echo>
+        <get src="http://download.jboss.org/wildfly/8.0.0.Alpha2/wildfly-8.0.0.Alpha2.zip" verbose="true" usetimestamp="true" dest="wildfly-8.0.0.Alpha2.zip" />
+        <echo>Deploying the JBoss EAP bundle to ${rhq.deploy.dir} ...</echo>
+        <property name="preinstallTargetExecuted" value="true" />
+        <rhq:audit status="SUCCESS" action="Preinstall Notice" info="Preinstalling to ${rhq.deploy.dir}" message="Optional message">
 			Additional, optional details regarding the deployment of ${rhq.deploy.dir}
 		</rhq:audit>
-	</target>
+    </target>
 
-	<target name="postinstall">
-		<chmod perm="ugo+rx">
-			<fileset dir="${rhq.deploy.dir}">
-				<include name="**/*.sh" />
-				<include name="**/*.bat" />
-			</fileset>
-		</chmod>
-		<copy todir="${jboss.server.base.dir}1">
-			<fileset dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/standalone" />
-		</copy>
-		<copy todir="${jboss.server.base.dir}2">
-			<fileset dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/standalone" />
-		</copy>
-		<osfamily property="os.family" />
-		<if>
-			<equals arg1="${os.family}" arg2="windows" />
-			<then>
-				<delete>
-					<fileset dir="${rhq.deploy.dir}" includes="*.sh" />
-				</delete>
-				<exec dir="${rhq.deploy.dir}" executable="cmd" spawn="true">
-					<arg line="/c start jboss-wildfly-standalone-start1.bat" />
-				</exec>
-				<exec dir="${rhq.deploy.dir}" executable="cmd" spawn="true">
-					<arg line="/c start jboss-wildfly-standalone-start2.bat" />
-				</exec>
-				<sleep seconds="10"/>
-				<exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="cmd">
-					<arg line="/c jboss-cli.bat --controller=${jboss.bind.address}:${jboss.management.http.port2} --connect --file=prepare-server2.cli" />
-				</exec>				
-				<sleep seconds="5"/>
-				<exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="cmd">
-					<arg line="/c jboss-cli.bat --controller=${jboss.bind.address}:${jboss.management.http.port1} --connect --file=prepare-server1-1.cli" />
-				</exec>
-				<sleep seconds="5"/>
-				<exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="cmd">
-					<arg line="/c jboss-cli.bat --controller=${jboss.bind.address}:${jboss.management.http.port1} --connect --file=prepare-server1-2.cli" />
-				</exec>
-			</then>
-			<elseif>
-				<equals arg1="${os.family}" arg2="unix" />
-				<then>
-					<delete>
-						<fileset dir="${rhq.deploy.dir}" includes="*.bat" />
-					</delete>
-					<exec dir="${rhq.deploy.dir}" executable="sh" spawn="true">
-						<arg line="jboss-wildfly-standalone-start1.sh" />
-					</exec>
-					<exec dir="${rhq.deploy.dir}" executable="sh" spawn="true">
-						<arg line="jboss-wildfly-standalone-start2.sh" />
-					</exec>
-				</then>
-			</elseif>
-			<else>
-				<echo message="Not sure what the operating system is, quitting auto start" />
-			</else>
-		</if>
-	</target>
+    <target name="postinstall">
+        <chmod perm="ugo+rx">
+            <fileset dir="${rhq.deploy.dir}">
+                <include name="**/*.sh" />
+                <include name="**/*.bat" />
+            </fileset>
+        </chmod>
+        <copy todir="${jboss.server.base.dir}1">
+            <fileset dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/standalone" />
+        </copy>
+        <copy todir="${jboss.server.base.dir}2">
+            <fileset dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/standalone" />
+        </copy>
+        <osfamily property="os.family" />
+        <if>
+            <equals arg1="${os.family}" arg2="windows" />
+            <then>
+                <delete>
+                    <fileset dir="${rhq.deploy.dir}" includes="*.sh" />
+                </delete>
+                <exec dir="${rhq.deploy.dir}" executable="cmd" spawn="true">
+                    <arg line="/c start jboss-wildfly-standalone-start1.bat" />
+                </exec>
+                <exec dir="${rhq.deploy.dir}" executable="cmd" spawn="true">
+                    <arg line="/c start jboss-wildfly-standalone-start2.bat" />
+                </exec>
+                <sleep seconds="10" />
+                <exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="cmd">
+                    <arg line="/c jboss-cli.bat --controller=${jboss.bind.address}:${jboss.management.http.port2} --connect --file=prepare-server2.cli" />
+                </exec>
+                <sleep seconds="5" />
+                <exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="cmd">
+                    <arg line="/c jboss-cli.bat --controller=${jboss.bind.address}:${jboss.management.http.port1} --connect --file=prepare-server1-1.cli" />
+                </exec>
+                <sleep seconds="5" />
+                <exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="cmd">
+                    <arg line="/c jboss-cli.bat --controller=${jboss.bind.address}:${jboss.management.http.port1} --connect --file=prepare-server1-2.cli" />
+                </exec>
+            </then>
+            <elseif>
+                <equals arg1="${os.family}" arg2="unix" />
+                <then>
+                    <delete>
+                        <fileset dir="${rhq.deploy.dir}" includes="*.bat" />
+                    </delete>
+                    <exec dir="${rhq.deploy.dir}" executable="sh" spawn="true">
+                        <arg line="jboss-wildfly-standalone-start1.sh" />
+                    </exec>
+                    <exec dir="${rhq.deploy.dir}" executable="sh" spawn="true">
+                        <arg line="jboss-wildfly-standalone-start2.sh" />
+                    </exec>
+                </then>
+            </elseif>
+            <else>
+                <echo message="Not sure what the operating system is, quitting auto start" />
+            </else>
+        </if>
+    </target>
 
-	<target name="main" />
+    <target name="main" />
 </project>
