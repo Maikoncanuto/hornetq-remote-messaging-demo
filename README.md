@@ -14,9 +14,14 @@ Highlights of the Demo
 ----------------------
 
 The install process will:
-- Setup two standlaone instances of Wildfly server. The second server is started with a port offset of 100
-- Configure JMS Queues: JMSBridgeSourceQ, LocalServer1Q, JMS Bridge: simple-jms-brdige and a pooled-connection-factory using outbound JCA adapter on server 1 thru CLI scripts
-- Configure JMS Queues: JMSBridgeTargetQ, LocalServer2Q on server 2 using the CLI scripts
+- Setup two standlaone instances of Wildfly server
+- Start the servers : Server 1 and Server 2, with Server 2 started with a port offset of 100
+- On Server 1, thru CLI scripts
+ * Configure JMS Queues: JMSBridgeSourceQ, LocalServer1Q
+ * JMS Bridge: simple-jms-brdige 
+ * A pooled-connection-factory using outbound JCA adapter 
+- On Server 2, thru CLI scripts
+ * Configure JMS Queues: JMSBridgeTargetQ, LocalServer2Q
 
 In this demo you will see how to send messages to a:
 - Remote queue running inside JBoss AS using a simple local Java client
