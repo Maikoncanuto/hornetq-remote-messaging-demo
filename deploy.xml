@@ -100,6 +100,21 @@
                     <exec dir="${rhq.deploy.dir}" executable="sh" spawn="true">
                         <arg line="jboss-wildfly-standalone-start2.sh" />
                     </exec>
+		    <sleep seconds="10" />
+		    <exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="sh">
+		    	<env key="JBOSS_HOME" value="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2" />
+		        <arg line="jboss-cli.sh --controller=${jboss.bind.address}:${jboss.management.http.port2} --connect --file=prepare-server2.cli" />
+		    </exec>
+		    <sleep seconds="5" />
+		    <exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="sh">
+		    	<env key="JBOSS_HOME" value="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2" />
+		        <arg line="jboss-cli.sh --controller=${jboss.bind.address}:${jboss.management.http.port1} --connect --file=prepare-server1-1.cli" />
+		    </exec>
+		    <sleep seconds="5" />
+		    <exec dir="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2/bin" executable="sh">
+		    	<env key="JBOSS_HOME" value="${rhq.deploy.dir}/wildfly-8.0.0.Alpha2" />
+		        <arg line="jboss-cli.sh --controller=${jboss.bind.address}:${jboss.management.http.port1} --connect --file=prepare-server1-2.cli" />
+		    </exec>                    
                 </then>
             </elseif>
             <else>
