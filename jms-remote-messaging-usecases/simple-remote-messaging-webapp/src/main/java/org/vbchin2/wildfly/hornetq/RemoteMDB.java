@@ -22,25 +22,25 @@ import org.jboss.logging.Logger;
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class RemoteMDB implements MessageListener {
 
-	private static Logger logger = Logger.getLogger(RemoteMDB.class);
-	
-	/**
+    private static Logger logger = Logger.getLogger(RemoteMDB.class);
+    
+    /**
      * Default constructor. 
      */
     public RemoteMDB() {
         // TODO Auto-generated constructor stub
     }
-	
-	/**
+    
+    /**
      * @see MessageListener#onMessage(Message)
      */
     public void onMessage(Message message) {
-    	TextMessage txtMsg = (TextMessage) message;
-    	try {
-			logger.info("The message received is : "+txtMsg.getText());
-		} catch (JMSException e) {
-			logger.error("There has been a JMSException ! "+e.getMessage());
-		}
+        TextMessage txtMsg = (TextMessage) message;
+        try {
+            logger.info("The message received is : "+txtMsg.getText());
+        } catch (JMSException e) {
+            logger.error("There has been a JMSException ! "+e.getMessage());
+        }
     }
 
 }
