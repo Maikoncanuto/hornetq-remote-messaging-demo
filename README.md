@@ -46,7 +46,7 @@ Command-Line Installation
 Building the Source Code with Maven
 -----------------------------------
 - Navigate to the folder _jms-remote-messaging-usecases_ in the demo root folder
-- Find the file __RemoteQueueInteractor.java__ and correct the IP address to the IP of your physical server
+- Find the files __RemoteQueueInteractor.java__, __RemoteMDB.java__ and correct the IP address to the IP of your physical server
 - Come back to folder _jms-remote-messaging-usecases_ at command propmt and run _mvn clean package_
 - If everything goes well and the build is a SUCCESS, the included test case for simple-remote-messaging-client has already sent out a message to __LocalServer1Q__ on __Server 1__
 - Now deploy the WAR file _simple-remote-messaging-webapp\target\simple-remote-messaging-webapp.war_ onto __Server 1__
